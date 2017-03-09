@@ -1,31 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:flexWrap="wrap"
-    app:alignItems="stretch"
-    app:alignContent="stretch" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
   <TextView
-      android:id="@+id/textview1"
-      android:layout_width="120dp"
-      android:layout_height="80dp"
-      app:layout_flexBasisPercent="50%"
-      />
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:gravity="center"
+      android:text="text unwrap"
+      android:textColor="@color/colorPrimary"/>
+
+  <com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview1"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview2"/>
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview3"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview4"/>
+  </com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>
 
   <TextView
-      android:id="@+id/textview2"
-      android:layout_width="80dp"
-      android:layout_height="80dp"
-      app:layout_alignSelf="center"
-      />
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:gravity="center"
+      android:text="text wrap"
+      android:textColor="@color/colorPrimary"/>
+
+  <com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:flexWrap="wrap" >
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview1"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview2"/>
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview3"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview4"/>
+  </com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>
 
   <TextView
-      android:id="@+id/textview3"
-      android:layout_width="160dp"
-      android:layout_height="80dp"
-      app:layout_alignSelf="flex_end"
-      />
-</com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:gravity="center"
+      android:text="text direction column"
+      android:textColor="@color/colorPrimary"/>
+
+  <com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:flexDirection="column">
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview1"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview2"/>
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview3"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:text="textview4"/>
+  </com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>
+
+</LinearLayout>
