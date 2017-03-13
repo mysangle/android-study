@@ -26,12 +26,6 @@ public class FlexLine {
   /** @see {@link #getMainSize()} */
   int mMainSize;
 
-  /**
-   * The sum of the lengths of dividers along the main axis. This value should be lower or
-   * than than the value of {@link #mMainSize}.
-   */
-  int mDividerLengthInMainSize;
-
   /** @see {@link #getCrossSize()} */
   int mCrossSize;
 
@@ -40,30 +34,6 @@ public class FlexLine {
 
   /** Holds the count of the views whose visibilities are gone */
   int mGoneItemCount;
-
-  /** @see {@link #getTotalFlexGrow()} */
-  float mTotalFlexGrow;
-
-  /** @see {@link #getTotalFlexShrink()} */
-  float mTotalFlexShrink;
-
-  /**
-   * The largest value of the individual child's baseline (obtained by View#getBaseline()
-   * if the {@link FlexboxLayout#mAlignItems} value is not {@link FlexboxLayout#ALIGN_ITEMS_BASELINE}
-   * or the flex direction is vertical, this value is not used.
-   * If the alignment direction is from the bottom to top,
-   * (e.g. flexWrap == FLEX_WRAP_WRAP_REVERSE and flexDirection == FLEX_DIRECTION_ROW)
-   * store this value from the distance from the bottom of the view minus baseline.
-   * (Calculated as view.getMeasuredHeight() - view.getBaseline - LayoutParams.bottomMargin)
-   */
-  int mMaxBaseline;
-
-  /**
-   * Store the indices of the children views whose alignSelf property is stretch.
-   * The stored indices are the absolute indices including all children in the Flexbox,
-   * not the relative indices in this flex line.
-   */
-  List<Integer> mIndicesAlignSelfStretch = new ArrayList<>();
 
   /**
    * @return the distance in pixels from the top edge of this view's parent
@@ -123,19 +93,5 @@ public class FlexLine {
    */
   public int getItemCountNotGone() {
     return mItemCount - mGoneItemCount;
-  }
-
-  /**
-   * @return the sum of the flexGrow properties of the children included in this flex line
-   */
-  public float getTotalFlexGrow() {
-    return mTotalFlexGrow;
-  }
-
-  /**
-   * @return the sum of the flexShrink properties of the children included in this flex line
-   */
-  public float getTotalFlexShrink() {
-    return mTotalFlexShrink;
   }
 }
