@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- search -->
+    <color name="text_primary_light">#ffffffff</color>
+    <color name="background_super_dark">#ff292929</color>
 </resources>

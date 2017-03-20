@@ -24,6 +24,11 @@
             android:name=".flexboxlayout.FlexboxLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity android:name=".SearchActivity"
+                  android:theme="@style/AppTheme.Search">
+
+        </activity>
     </application>
 
 </manifest>

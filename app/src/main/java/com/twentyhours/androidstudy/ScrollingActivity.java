@@ -1,5 +1,6 @@
 package com.twentyhours.androidstudy;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,12 +14,15 @@ import android.view.MenuItem;
 import com.twentyhours.androidstudy.flexboxlayout.FlexboxLayoutActivity;
 
 public class ScrollingActivity extends AppCompatActivity {
+  private static final int RC_SEARCH = 0;
+
+  Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scrolling);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -43,15 +47,33 @@ public class ScrollingActivity extends AppCompatActivity {
     // Handle action bar item clicks here. The action bar will
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    } else if (id == R.id.action_flexbox){
-      Intent intent = new Intent(this, FlexboxLayoutActivity.class);
-      startActivity(intent);
+    switch (item.getItemId()) {
+      case R.id.action_settings:
+        return true;
+      case R.id.action_flexbox:
+        Intent intent = new Intent(this, FlexboxLayoutActivity.class);
+        startActivity(intent);
+        return true;
+      case R.id.menu_search:
+        View searchMenuView = toolbar.findViewById(R.id.menu_search);
+        Bundle options = ActivityOptions.makeSceneTransitionAnimation(this, searchMenuView,
+            getString(R.string.transition_search_back)).toBundle();
+        startActivityForResult(new Intent(this, SearchActivity.class), RC_SEARCH, options);
+        return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      case RC_SEARCH:
+        // reset the search icon which we hid
+        View searchMenuView = toolbar.findViewById(R.id.menu_search);
+        if (searchMenuView != null) {
+          searchMenuView.setAlpha(1f);
+        }
+        break;
+    }
   }
 }

@@ -23,7 +23,6 @@
         android:layout_width="120dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview1"/>
 
@@ -31,7 +30,6 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview2"/>
 
@@ -39,7 +37,6 @@
         android:layout_width="160dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview3"/>
 
@@ -47,7 +44,6 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview4"/>
   </com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>
@@ -71,7 +67,6 @@
         android:layout_width="120dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview1"/>
 
@@ -79,7 +74,6 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview2"/>
 
@@ -87,7 +81,6 @@
         android:layout_width="160dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview3"/>
 
@@ -95,7 +88,6 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview4"/>
   </com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>
@@ -119,7 +111,6 @@
         android:layout_width="120dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview1"/>
 
@@ -127,7 +118,6 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview2"/>
 
@@ -135,7 +125,6 @@
         android:layout_width="160dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview3"/>
 
@@ -143,7 +132,6 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_margin="16dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:text="textview4"/>
   </com.twentyhours.androidstudy.flexboxlayout.FlexboxLayout>

@@ -17,4 +17,32 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="AppTheme.Search" parent="AppTheme.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/SearchWindowAnimations</item>
+        <item name="android:statusBarColor">@color/background_super_dark</item>
+        <item name="android:navigationBarColor">@color/background_super_dark</item>
+        <item name="android:windowEnterTransition">@transition/search_enter</item>
+        <item name="android:windowReturnTransition">@transition/search_return</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/search_shared_enter</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/search_shared_return</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+    </style>
+
+    <style name="SearchWindowAnimations">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_rapidly</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+        <item name="colorControlActivated">?android:colorAccent</item>
+        <item name="android:searchViewStyle">@style/Widget.Plaid.SearchView</item>
+    </style>
+
+    <style name="Widget.Plaid.SearchView" parent="android:style/Widget.Material.SearchView">
+        <item name="android:searchIcon">@android:color/transparent</item>
+        <item name="android:searchHintIcon">@android:color/transparent</item>
+        <item name="android:queryBackground">@android:color/transparent</item>
+        <item name="android:submitBackground">@android:color/transparent</item>
+    </style>
+
 </resources>
