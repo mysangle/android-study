@@ -1,7 +1,5 @@
 package com.twentyhours.androidstudy;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,11 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.twentyhours.androidstudy.flexboxlayout.FlexboxLayoutActivity;
-
 public class ScrollingActivity extends AppCompatActivity {
-  private static final int RC_SEARCH = 0;
-
   Toolbar toolbar;
 
   @Override
@@ -50,30 +44,7 @@ public class ScrollingActivity extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.action_settings:
         return true;
-      case R.id.action_flexbox:
-        Intent intent = new Intent(this, FlexboxLayoutActivity.class);
-        startActivity(intent);
-        return true;
-      case R.id.menu_search:
-        View searchMenuView = toolbar.findViewById(R.id.menu_search);
-        Bundle options = ActivityOptions.makeSceneTransitionAnimation(this, searchMenuView,
-            getString(R.string.transition_search_back)).toBundle();
-        startActivityForResult(new Intent(this, SearchActivity.class), RC_SEARCH, options);
-        return true;
     }
     return super.onOptionsItemSelected(item);
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    switch (requestCode) {
-      case RC_SEARCH:
-        // reset the search icon which we hid
-        View searchMenuView = toolbar.findViewById(R.id.menu_search);
-        if (searchMenuView != null) {
-          searchMenuView.setAlpha(1f);
-        }
-        break;
-    }
   }
 }
