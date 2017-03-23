@@ -39,6 +39,11 @@
         <activity android:name=".SearchActivity"
                   android:theme="@style/AppTheme.Search">
         </activity>
+
+        <activity
+            android:name=".youtubestylelayout.YoutubeStyleLayoutActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

@@ -48,9 +48,18 @@
       android:textSize="20dp"/>
 
   <TextView
+      android:id="@+id/youtubestylelayout"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      android:gravity="center"
+      android:text="Youtube Style Layout"
+      android:textSize="20dp"/>
+
+  <TextView
       android:id="@+id/scrolling"
       android:layout_width="match_parent"
       android:layout_height="60dp"
+      android:background="#f5f5f5"
       android:gravity="center"
       android:text="Scrolling"
       android:textSize="20dp"/>

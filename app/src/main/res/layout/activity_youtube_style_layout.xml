@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ratio="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+  <com.twentyhours.androidstudy.youtubestylelayout.YoutubeStyleLayout
+      android:id="@+id/youtubestylelayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/mainview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/text_margin"
+          android:text="@string/large_text"/>
+
+    </ScrollView>
+
+    <com.twentyhours.androidstudy.youtubestylelayout.AspectRatioImageView
+        xmlns:ratio="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slidingview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rough_horn"
+        ratio:heightRatio="9"
+        ratio:widthRatio="16"/>
+
+  </com.twentyhours.androidstudy.youtubestylelayout.YoutubeStyleLayout>
+
+</LinearLayout>

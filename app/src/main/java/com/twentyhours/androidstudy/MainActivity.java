@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.twentyhours.androidstudy.flexboxlayout.FlexboxLayoutActivity;
+import com.twentyhours.androidstudy.youtubestylelayout.YoutubeStyleLayoutActivity;
 
 /**
  * Created by soonhyung-imac on 3/21/17.
@@ -42,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         startActivity(new Intent(MainActivity.this, InAndOutAnimationActivity.class));
+      }
+    });
+
+    TextView youtubestylelayout = (TextView) findViewById(R.id.youtubestylelayout);
+    youtubestylelayout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(MainActivity.this, YoutubeStyleLayoutActivity.class));
       }
     });
 

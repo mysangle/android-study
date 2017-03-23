@@ -28,4 +28,10 @@ limitations under the License.
             <enum name="wrap_reverse" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="AspectRatio">
+        <attr name="widthRatio" format="integer"/>
+        <attr name="heightRatio" format="integer"/>
+    </declare-styleable>
+
 </resources>
