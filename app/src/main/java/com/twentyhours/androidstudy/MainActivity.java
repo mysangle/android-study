@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.twentyhours.androidstudy.flexboxlayout.FlexboxLayoutActivity;
@@ -46,11 +47,15 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
+    final ImageView transitionIcon = (ImageView) findViewById(R.id.transition_icon);
     TextView youtubestylelayout = (TextView) findViewById(R.id.youtubestylelayout);
     youtubestylelayout.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        startActivity(new Intent(MainActivity.this, YoutubeStyleLayoutActivity.class));
+        ActivityOptions options =
+            ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,
+                transitionIcon, "transition");
+        startActivity(new Intent(MainActivity.this, YoutubeStyleLayoutActivity.class), options.toBundle());
       }
     });
 
