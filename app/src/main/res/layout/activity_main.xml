@@ -28,6 +28,7 @@
           app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.CollapsingToolbarLayout>
+
   </android.support.design.widget.AppBarLayout>
 
   <TextView
@@ -70,10 +71,18 @@
   </LinearLayout>
 
   <TextView
-      android:id="@+id/scrolling"
+      android:id="@+id/viewpager"
       android:layout_width="match_parent"
       android:layout_height="60dp"
       android:background="#f5f5f5"
+      android:gravity="center"
+      android:text="View Pager"
+      android:textSize="20dp"/>
+
+  <TextView
+      android:id="@+id/scrolling"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
       android:gravity="center"
       android:text="Scrolling"
       android:textSize="20dp"/>
