@@ -28,7 +28,8 @@ public class ViewPagerActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
 
     pager = (ViewPager) findViewById(R.id.viewpager);
-    pager.setAdapter(new ViewPagerAdapter(this));
+    ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+    pager.setAdapter(adapter);
   }
 
   private static class ViewPagerAdapter extends PagerAdapter {
