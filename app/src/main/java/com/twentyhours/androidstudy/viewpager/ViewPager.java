@@ -7,14 +7,12 @@ import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.os.Parcelable;
 import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -25,11 +23,6 @@ import android.view.ViewParent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -122,7 +115,6 @@ public class ViewPager extends ViewGroup {
   private int mPageTransformerLayerType;
   private boolean mCalledSuper;
   private final ItemInfo mTempItem = new ItemInfo();
-  private int mDecorChildCount;
   private int mChildWidthMeasureSpec;
   private int mChildHeightMeasureSpec;
   private int mGutterSize;
@@ -143,12 +135,6 @@ public class ViewPager extends ViewGroup {
 
   private List<android.support.v4.view.ViewPager.OnPageChangeListener> mOnPageChangeListeners;
   private android.support.v4.view.ViewPager.OnPageChangeListener mInternalPageChangeListener;
-
-  @Retention(RetentionPolicy.RUNTIME)
-  @Target(ElementType.TYPE)
-  @Inherited
-  public @interface DecorView {
-  }
 
   public ViewPager(Context context) {
     super(context);
@@ -445,46 +431,6 @@ public class ViewPager extends ViewGroup {
 
   @CallSuper
   protected void onPageScrolled(int position, float offset, int offsetPixels) {
-    // Offset any decor views if needed - keep them on-screen at all times.
-    if (mDecorChildCount > 0) {
-      final int scrollX = getScrollX();
-      int paddingLeft = getPaddingLeft();
-      int paddingRight = getPaddingRight();
-      final int width = getWidth();
-      final int childCount = getChildCount();
-      for (int i = 0; i < childCount; i++) {
-        final View child = getChildAt(i);
-        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        if (!lp.isDecor) continue;
-
-        final int hgrav = lp.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
-        int childLeft = 0;
-        switch (hgrav) {
-          default:
-            childLeft = paddingLeft;
-            break;
-          case Gravity.LEFT:
-            childLeft = paddingLeft;
-            paddingLeft += child.getWidth();
-            break;
-          case Gravity.CENTER_HORIZONTAL:
-            childLeft = Math.max((width - child.getMeasuredWidth()) / 2,
-                paddingLeft);
-            break;
-          case Gravity.RIGHT:
-            childLeft = width - paddingRight - child.getMeasuredWidth();
-            paddingRight += child.getMeasuredWidth();
-            break;
-        }
-        childLeft += scrollX;
-
-        final int childOffset = childLeft - child.getLeft();
-        if (childOffset != 0) {
-          child.offsetLeftAndRight(childOffset);
-        }
-      }
-    }
-
     dispatchOnPageScrolled(position, offset, offsetPixels);
 
     if (mPageTransformer != null) {
@@ -494,7 +440,6 @@ public class ViewPager extends ViewGroup {
         final View child = getChildAt(i);
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
-        if (lp.isDecor) continue;
         final float transformPos = (float) (child.getLeft() - scrollX) / getClientWidth();
         mPageTransformer.transformPage(child, transformPos);
       }
@@ -693,10 +638,8 @@ public class ViewPager extends ViewGroup {
     for (int i = 0; i < getChildCount(); i++) {
       final View child = getChildAt(i);
       final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-      if (!lp.isDecor) {
-        removeViewAt(i);
-        i--;
-      }
+      removeViewAt(i);
+      i--;
     }
   }
 
@@ -761,9 +704,7 @@ public class ViewPager extends ViewGroup {
       for (int i = 0; i < childCount; i++) {
         final View child = getChildAt(i);
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        if (!lp.isDecor) {
-          lp.widthFactor = 0.f;
-        }
+        lp.widthFactor = 0.f;
       }
 
       setCurrentItemInternal(newCurrItem, false, true);
@@ -907,7 +848,7 @@ public class ViewPager extends ViewGroup {
       final View child = getChildAt(i);
       final LayoutParams lp = (LayoutParams) child.getLayoutParams();
       lp.childIndex = i;
-      if (!lp.isDecor && lp.widthFactor == 0.f) {
+      if (lp.widthFactor == 0.f) {
         // 0 means requery the adapter for this, it doesn't have a valid width.
         final ItemInfo ii = infoForChild(child);
         if (ii != null) {
@@ -1091,22 +1032,12 @@ public class ViewPager extends ViewGroup {
       params = generateLayoutParams(params);
     }
     final LayoutParams lp = (LayoutParams) params;
-    // Any views added via inflation should be classed as part of the decor
-    lp.isDecor |= isDecorView(child);
     if (mInLayout) {
-      if (lp != null && lp.isDecor) {
-        throw new IllegalStateException("Cannot add pager decor view during layout");
-      }
       lp.needsMeasure = true;
       addViewInLayout(child, index, params);
     } else {
       super.addView(child, index, params);
     }
-  }
-
-  private static boolean isDecorView(@NonNull View view) {
-    Class<?> clazz = view.getClass();
-    return clazz.getAnnotation(DecorView.class) != null;
   }
 
   @Override
@@ -1127,57 +1058,6 @@ public class ViewPager extends ViewGroup {
     int childWidthSize = measuredWidth - getPaddingLeft() - getPaddingRight();
     int childHeightSize = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
 
-        /*
-         * Make sure all children have been properly measured. Decor views first.
-         * Right now we cheat and make this less complicated by assuming decor
-         * views won't intersect. We will pin to edges based on gravity.
-         */
-    int size = getChildCount();
-    for (int i = 0; i < size; ++i) {
-      final View child = getChildAt(i);
-      if (child.getVisibility() != GONE) {
-        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        if (lp != null && lp.isDecor) {
-          final int hgrav = lp.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
-          final int vgrav = lp.gravity & Gravity.VERTICAL_GRAVITY_MASK;
-          int widthMode = MeasureSpec.AT_MOST;
-          int heightMode = MeasureSpec.AT_MOST;
-          boolean consumeVertical = vgrav == Gravity.TOP || vgrav == Gravity.BOTTOM;
-          boolean consumeHorizontal = hgrav == Gravity.LEFT || hgrav == Gravity.RIGHT;
-
-          if (consumeVertical) {
-            widthMode = MeasureSpec.EXACTLY;
-          } else if (consumeHorizontal) {
-            heightMode = MeasureSpec.EXACTLY;
-          }
-
-          int widthSize = childWidthSize;
-          int heightSize = childHeightSize;
-          if (lp.width != LayoutParams.WRAP_CONTENT) {
-            widthMode = MeasureSpec.EXACTLY;
-            if (lp.width != LayoutParams.MATCH_PARENT) {
-              widthSize = lp.width;
-            }
-          }
-          if (lp.height != LayoutParams.WRAP_CONTENT) {
-            heightMode = MeasureSpec.EXACTLY;
-            if (lp.height != LayoutParams.MATCH_PARENT) {
-              heightSize = lp.height;
-            }
-          }
-          final int widthSpec = MeasureSpec.makeMeasureSpec(widthSize, widthMode);
-          final int heightSpec = MeasureSpec.makeMeasureSpec(heightSize, heightMode);
-          child.measure(widthSpec, heightSpec);
-
-          if (consumeVertical) {
-            childHeightSize -= child.getMeasuredHeight();
-          } else if (consumeHorizontal) {
-            childWidthSize -= child.getMeasuredWidth();
-          }
-        }
-      }
-    }
-
     mChildWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
     mChildHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeightSize, MeasureSpec.EXACTLY);
 
@@ -1187,16 +1067,14 @@ public class ViewPager extends ViewGroup {
     mInLayout = false;
 
     // Page views next.
-    size = getChildCount();
+    int size = getChildCount();
     for (int i = 0; i < size; ++i) {
       final View child = getChildAt(i);
       if (child.getVisibility() != GONE) {
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        if (lp == null || !lp.isDecor) {
-          final int widthSpec = MeasureSpec.makeMeasureSpec(
-              (int) (childWidthSize * lp.widthFactor), MeasureSpec.EXACTLY);
-          child.measure(widthSpec, mChildHeightMeasureSpec);
-        }
+        final int widthSpec = MeasureSpec.makeMeasureSpec(
+            (int) (childWidthSize * lp.widthFactor), MeasureSpec.EXACTLY);
+        child.measure(widthSpec, mChildHeightMeasureSpec);
       }
     }
   }
@@ -1212,62 +1090,6 @@ public class ViewPager extends ViewGroup {
     int paddingBottom = getPaddingBottom();
     final int scrollX = getScrollX();
 
-    int decorCount = 0;
-
-    // First pass - decor views. We need to do this in two passes so that
-    // we have the proper offsets for non-decor views later.
-    for (int i = 0; i < count; i++) {
-      final View child = getChildAt(i);
-      if (child.getVisibility() != GONE) {
-        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        int childLeft = 0;
-        int childTop = 0;
-        if (lp.isDecor) {
-          final int hgrav = lp.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
-          final int vgrav = lp.gravity & Gravity.VERTICAL_GRAVITY_MASK;
-          switch (hgrav) {
-            default:
-              childLeft = paddingLeft;
-              break;
-            case Gravity.LEFT:
-              childLeft = paddingLeft;
-              paddingLeft += child.getMeasuredWidth();
-              break;
-            case Gravity.CENTER_HORIZONTAL:
-              childLeft = Math.max((width - child.getMeasuredWidth()) / 2,
-                  paddingLeft);
-              break;
-            case Gravity.RIGHT:
-              childLeft = width - paddingRight - child.getMeasuredWidth();
-              paddingRight += child.getMeasuredWidth();
-              break;
-          }
-          switch (vgrav) {
-            default:
-              childTop = paddingTop;
-              break;
-            case Gravity.TOP:
-              childTop = paddingTop;
-              paddingTop += child.getMeasuredHeight();
-              break;
-            case Gravity.CENTER_VERTICAL:
-              childTop = Math.max((height - child.getMeasuredHeight()) / 2,
-                  paddingTop);
-              break;
-            case Gravity.BOTTOM:
-              childTop = height - paddingBottom - child.getMeasuredHeight();
-              paddingBottom += child.getMeasuredHeight();
-              break;
-          }
-          childLeft += scrollX;
-          child.layout(childLeft, childTop,
-              childLeft + child.getMeasuredWidth(),
-              childTop + child.getMeasuredHeight());
-          decorCount++;
-        }
-      }
-    }
-
     final int childWidth = width - paddingLeft - paddingRight;
     // Page views. Do this once we have the right padding offsets from above.
     for (int i = 0; i < count; i++) {
@@ -1275,7 +1097,7 @@ public class ViewPager extends ViewGroup {
       if (child.getVisibility() != GONE) {
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
         ItemInfo ii;
-        if (!lp.isDecor && (ii = infoForChild(child)) != null) {
+        if ((ii = infoForChild(child)) != null) {
           int loff = (int) (childWidth * ii.offset);
           int childLeft = paddingLeft + loff;
           int childTop = paddingTop;
@@ -1299,7 +1121,6 @@ public class ViewPager extends ViewGroup {
     }
     mTopPageBounds = paddingTop;
     mBottomPageBounds = height - paddingBottom;
-    mDecorChildCount = decorCount;
 
     if (mFirstLayout) {
       scrollToItem(mCurItem, false, 0, false);
@@ -1792,7 +1613,6 @@ public class ViewPager extends ViewGroup {
 
   public static class LayoutParams extends ViewGroup.LayoutParams {
     public int gravity;
-    public boolean isDecor;
     float widthFactor = 0.f;
     int childIndex;
     int position;
@@ -1816,9 +1636,6 @@ public class ViewPager extends ViewGroup {
     public int compare(View lhs, View rhs) {
       final LayoutParams llp = (LayoutParams) lhs.getLayoutParams();
       final LayoutParams rlp = (LayoutParams) rhs.getLayoutParams();
-      if (llp.isDecor != rlp.isDecor) {
-        return llp.isDecor ? 1 : -1;
-      }
       return llp.position - rlp.position;
     }
   }
