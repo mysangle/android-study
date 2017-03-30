@@ -7,3 +7,6 @@
 3. View in and out animation
 
 4. Youtube style layout
+
+5. View Pager
+
