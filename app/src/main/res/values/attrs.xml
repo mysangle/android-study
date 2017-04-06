@@ -34,4 +34,14 @@ limitations under the License.
         <attr name="heightRatio" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="RecyclerView">
+        <attr format="string" name="layoutManager"/>
+        <attr name="android:orientation"/>
+        <attr name="android:descendantFocusability"/>
+        <attr format="integer" name="spanCount"/>
+        <attr format="boolean" name="reverseLayout"/>
+        <attr format="boolean" name="stackFromEnd"/>
+    </declare-styleable>
+
+
 </resources>

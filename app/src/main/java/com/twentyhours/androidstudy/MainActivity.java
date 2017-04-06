@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.twentyhours.androidstudy.flexboxlayout.FlexboxLayoutActivity;
+import com.twentyhours.androidstudy.recyclerview.RecyclerViewActivity;
 import com.twentyhours.androidstudy.viewpager.ViewPagerActivity;
 import com.twentyhours.androidstudy.youtubestylelayout.YoutubeStyleLayoutActivity;
 
@@ -60,19 +61,27 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    TextView scrolling = (TextView) findViewById(R.id.scrolling);
-    scrolling.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
-      }
-    });
-
     TextView viewPager = (TextView) findViewById(R.id.viewpager);
     viewPager.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         startActivity(new Intent(MainActivity.this, ViewPagerActivity.class));
+      }
+    });
+
+    TextView recyclerView = (TextView) findViewById(R.id.recyclerview);
+    recyclerView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class));
+      }
+    });
+
+    TextView scrolling = (TextView) findViewById(R.id.scrolling);
+    scrolling.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
       }
     });
   }
