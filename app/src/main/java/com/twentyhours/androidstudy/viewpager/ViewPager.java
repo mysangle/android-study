@@ -132,9 +132,17 @@ public class ViewPager extends ViewGroup {
   private int mActivePointerId = INVALID_POINTER;
   private static final int INVALID_POINTER = -1;
 
+  public interface OnPageChangeListener {
+    void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
-  private List<android.support.v4.view.ViewPager.OnPageChangeListener> mOnPageChangeListeners;
-  private android.support.v4.view.ViewPager.OnPageChangeListener mInternalPageChangeListener;
+    void onPageSelected(int position);
+
+    void onPageScrollStateChanged(int state);
+  }
+
+
+  private List<OnPageChangeListener> mOnPageChangeListeners;
+  private OnPageChangeListener mInternalPageChangeListener;
 
   public ViewPager(Context context) {
     super(context);
@@ -239,6 +247,10 @@ public class ViewPager extends ViewGroup {
       mScroller.abortAnimation();
     }
     super.onDetachedFromWindow();
+  }
+
+  public PagerAdapter getAdapter() {
+    return mAdapter;
   }
 
   public void setAdapter(PagerAdapter adapter) {
@@ -365,7 +377,7 @@ public class ViewPager extends ViewGroup {
   private void dispatchOnPageScrolled(int position, float offset, int offsetPixels) {
     if (mOnPageChangeListeners != null) {
       for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
-        android.support.v4.view.ViewPager.OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+        OnPageChangeListener listener = mOnPageChangeListeners.get(i);
         if (listener != null) {
           listener.onPageScrolled(position, offset, offsetPixels);
         }
@@ -379,7 +391,7 @@ public class ViewPager extends ViewGroup {
   private void dispatchOnPageSelected(int position) {
     if (mOnPageChangeListeners != null) {
       for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
-        android.support.v4.view.ViewPager.OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+        OnPageChangeListener listener = mOnPageChangeListeners.get(i);
         if (listener != null) {
           listener.onPageSelected(position);
         }
@@ -393,7 +405,7 @@ public class ViewPager extends ViewGroup {
   private void dispatchOnScrollStateChanged(int state) {
     if (mOnPageChangeListeners != null) {
       for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
-        android.support.v4.view.ViewPager.OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+        OnPageChangeListener listener = mOnPageChangeListeners.get(i);
         if (listener != null) {
           listener.onPageScrollStateChanged(state);
         }
@@ -404,14 +416,14 @@ public class ViewPager extends ViewGroup {
     }
   }
 
-  public void addOnPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener listener) {
+  public void addOnPageChangeListener(OnPageChangeListener listener) {
     if (mOnPageChangeListeners == null) {
       mOnPageChangeListeners = new ArrayList<>();
     }
     mOnPageChangeListeners.add(listener);
   }
 
-  public void removeOnPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener listener) {
+  public void removeOnPageChangeListener(OnPageChangeListener listener) {
     if (mOnPageChangeListeners != null) {
       mOnPageChangeListeners.remove(listener);
     }

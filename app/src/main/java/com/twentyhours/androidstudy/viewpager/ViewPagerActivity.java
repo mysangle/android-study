@@ -18,6 +18,7 @@ import com.twentyhours.androidstudy.R;
 public class ViewPagerActivity extends AppCompatActivity {
   Toolbar toolbar;
   ViewPager pager;
+  InkPageIndicator pageIndicator;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,9 @@ public class ViewPagerActivity extends AppCompatActivity {
     pager = (ViewPager) findViewById(R.id.viewpager);
     ViewPagerAdapter adapter = new ViewPagerAdapter(this);
     pager.setAdapter(adapter);
+
+    pageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
+    pageIndicator.setViewPager(pager);
   }
 
   private static class ViewPagerAdapter extends PagerAdapter {

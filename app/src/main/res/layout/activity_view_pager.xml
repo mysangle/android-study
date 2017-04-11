@@ -31,9 +31,24 @@
 
   </android.support.design.widget.AppBarLayout>
 
-  <com.twentyhours.androidstudy.viewpager.ViewPager
-      android:id="@+id/viewpager"
+  <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="wrap_content">
+
+    <com.twentyhours.androidstudy.viewpager.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.twentyhours.androidstudy.viewpager.InkPageIndicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="8dp"
+        app:pageIndicatorColor="@color/colorAccent"
+        app:currentPageIndicatorColor="@color/colorPrimary" />
+
+  </FrameLayout>
 
 </LinearLayout>

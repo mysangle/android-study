@@ -1,5 +1,6 @@
 package com.twentyhours.androidstudy.viewpager;
 
+import android.database.DataSetObservable;
 import android.database.DataSetObserver;
 import android.os.Parcelable;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
  */
 
 public abstract class PagerAdapter {
+  private final DataSetObservable mObservable = new DataSetObservable();
   private DataSetObserver mViewPagerObserver;
 
   public static final int POSITION_UNCHANGED = -1;
@@ -58,5 +60,14 @@ public abstract class PagerAdapter {
         mViewPagerObserver.onChanged();
       }
     }
+    mObservable.notifyChanged();
+  }
+
+  public void registerDataSetObserver(DataSetObserver observer) {
+    mObservable.registerObserver(observer);
+  }
+
+  public void unregisterDataSetObserver(DataSetObserver observer) {
+    mObservable.unregisterObserver(observer);
   }
 }
