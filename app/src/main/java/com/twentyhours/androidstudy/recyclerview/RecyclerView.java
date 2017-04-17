@@ -191,43 +191,43 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
 
   private void setAdapterInternal(Adapter adapter, boolean compatibleWithPrevious,
                                   boolean removeAndRecycleViews) {
-    if (mAdapter != null) {
-      mAdapter.unregisterAdapterDataObserver(mObserver);
-      mAdapter.onDetachedFromRecyclerView(this);
-    }
-    if (!compatibleWithPrevious || removeAndRecycleViews) {
-      removeAndRecycleViews();
-    }
-    mAdapterHelper.reset();
-    final Adapter oldAdapter = mAdapter;
-    mAdapter = adapter;
-    if (adapter != null) {
-      adapter.registerAdapterDataObserver(mObserver);
-      adapter.onAttachedToRecyclerView(this);
-    }
-    if (mLayout != null) {
-      mLayout.onAdapterChanged(oldAdapter, mAdapter);
-    }
-    mRecycler.onAdapterChanged(oldAdapter, mAdapter, compatibleWithPrevious);
-    mState.mStructureChanged = true;
-    markKnownViewsInvalid();
-  }
-
-  void removeAndRecycleViews() {
-    // end all running animations
-    if (mItemAnimator != null) {
-      mItemAnimator.endAnimations();
-    }
-    // Since animations are ended, mLayout.children should be equal to
-    // recyclerView.children. This may not be true if item animator's end does not work as
-    // expected. (e.g. not release children instantly). It is safer to use mLayout's child
-    // count.
-    if (mLayout != null) {
-      mLayout.removeAndRecycleAllViews(mRecycler);
-      mLayout.removeAndRecycleScrapInt(mRecycler);
-    }
-    // we should clear it here before adapters are swapped to ensure correct callbacks.
-    mRecycler.clear();
+//    if (mAdapter != null) {
+//      mAdapter.unregisterAdapterDataObserver(mObserver);
+//      mAdapter.onDetachedFromRecyclerView(this);
+//    }
+//    if (!compatibleWithPrevious || removeAndRecycleViews) {
+//      removeAndRecycleViews();
+//    }
+//    mAdapterHelper.reset();
+//    final Adapter oldAdapter = mAdapter;
+//    mAdapter = adapter;
+//    if (adapter != null) {
+//      adapter.registerAdapterDataObserver(mObserver);
+//      adapter.onAttachedToRecyclerView(this);
+//    }
+//    if (mLayout != null) {
+//      mLayout.onAdapterChanged(oldAdapter, mAdapter);
+//    }
+//    mRecycler.onAdapterChanged(oldAdapter, mAdapter, compatibleWithPrevious);
+//    mState.mStructureChanged = true;
+//    markKnownViewsInvalid();
+//  }
+//
+//  void removeAndRecycleViews() {
+//    // end all running animations
+//    if (mItemAnimator != null) {
+//      mItemAnimator.endAnimations();
+//    }
+//    // Since animations are ended, mLayout.children should be equal to
+//    // recyclerView.children. This may not be true if item animator's end does not work as
+//    // expected. (e.g. not release children instantly). It is safer to use mLayout's child
+//    // count.
+//    if (mLayout != null) {
+//      mLayout.removeAndRecycleAllViews(mRecycler);
+//      mLayout.removeAndRecycleScrapInt(mRecycler);
+//    }
+//    // we should clear it here before adapters are swapped to ensure correct callbacks.
+//    mRecycler.clear();
   }
 
   public void setLayoutFrozen(boolean frozen) {
@@ -273,305 +273,305 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
   }
 
   public void stopScroll() {
-    setScrollState(SCROLL_STATE_IDLE);
-    stopScrollersInternal();
+//    setScrollState(SCROLL_STATE_IDLE);
+//    stopScrollersInternal();
   }
 
   public void setLayoutManager(LayoutManager layout) {
-    if (layout == mLayout) {
-      return;
-    }
-    stopScroll();
-    // TODO We should do this switch a dispatchLayout pass and animate children. There is a good
-    // chance that LayoutManagers will re-use views.
-    if (mLayout != null) {
-      // end all running animations
-      if (mItemAnimator != null) {
-        mItemAnimator.endAnimations();
-      }
-      mLayout.removeAndRecycleAllViews(mRecycler);
-      mLayout.removeAndRecycleScrapInt(mRecycler);
-      mRecycler.clear();
-
-      if (mIsAttached) {
-        mLayout.dispatchDetachedFromWindow(this, mRecycler);
-      }
-      mLayout.setRecyclerView(null);
-      mLayout = null;
-    } else {
-      mRecycler.clear();
-    }
-    // this is just a defensive measure for faulty item animators.
-    mChildHelper.removeAllViewsUnfiltered();
-    mLayout = layout;
-    if (layout != null) {
-      if (layout.mRecyclerView != null) {
-        throw new IllegalArgumentException("LayoutManager " + layout +
-            " is already attached to a RecyclerView: " + layout.mRecyclerView);
-      }
-      mLayout.setRecyclerView(this);
-      if (mIsAttached) {
-        mLayout.dispatchAttachedToWindow(this);
-      }
-    }
-    mRecycler.updateViewCacheSize();
-    requestLayout();
+//    if (layout == mLayout) {
+//      return;
+//    }
+//    stopScroll();
+//    // TODO We should do this switch a dispatchLayout pass and animate children. There is a good
+//    // chance that LayoutManagers will re-use views.
+//    if (mLayout != null) {
+//      // end all running animations
+//      if (mItemAnimator != null) {
+//        mItemAnimator.endAnimations();
+//      }
+//      mLayout.removeAndRecycleAllViews(mRecycler);
+//      mLayout.removeAndRecycleScrapInt(mRecycler);
+//      mRecycler.clear();
+//
+//      if (mIsAttached) {
+//        mLayout.dispatchDetachedFromWindow(this, mRecycler);
+//      }
+//      mLayout.setRecyclerView(null);
+//      mLayout = null;
+//    } else {
+//      mRecycler.clear();
+//    }
+//    // this is just a defensive measure for faulty item animators.
+//    mChildHelper.removeAllViewsUnfiltered();
+//    mLayout = layout;
+//    if (layout != null) {
+//      if (layout.mRecyclerView != null) {
+//        throw new IllegalArgumentException("LayoutManager " + layout +
+//            " is already attached to a RecyclerView: " + layout.mRecyclerView);
+//      }
+//      mLayout.setRecyclerView(this);
+//      if (mIsAttached) {
+//        mLayout.dispatchAttachedToWindow(this);
+//      }
+//    }
+//    mRecycler.updateViewCacheSize();
+//    requestLayout();
   }
 
 
 
   private void initChildrenHelper() {
-    mChildHelper = new ChildHelper(new ChildHelper.Callback() {
-      @Override
-      public int getChildCount() {
-        return RecyclerView.this.getChildCount();
-      }
-
-      @Override
-      public void addView(View child, int index) {
-        RecyclerView.this.addView(child, index);
-        dispatchChildAttached(child);
-      }
-
-      @Override
-      public int indexOfChild(View view) {
-        return RecyclerView.this.indexOfChild(view);
-      }
-
-      @Override
-      public void removeViewAt(int index) {
-        final View child = RecyclerView.this.getChildAt(index);
-        if (child != null) {
-          dispatchChildDetached(child);
-        }
-        RecyclerView.this.removeViewAt(index);
-      }
-
-      @Override
-      public View getChildAt(int offset) {
-        return RecyclerView.this.getChildAt(offset);
-      }
-
-      @Override
-      public void removeAllViews() {
-        final int count = getChildCount();
-        for (int i = 0; i < count; i ++) {
-          dispatchChildDetached(getChildAt(i));
-        }
-        RecyclerView.this.removeAllViews();
-      }
-
-      @Override
-      public ViewHolder getChildViewHolder(View view) {
-        return getChildViewHolderInt(view);
-      }
-
-      @Override
-      public void attachViewToParent(View child, int index,
-                                     ViewGroup.LayoutParams layoutParams) {
-        final ViewHolder vh = getChildViewHolderInt(child);
-        if (vh != null) {
-          if (!vh.isTmpDetached() && !vh.shouldIgnore()) {
-            throw new IllegalArgumentException("Called attach on a child which is not"
-                + " detached: " + vh);
-          }
-          if (DEBUG) {
-            Log.d(TAG, "reAttach " + vh);
-          }
-          vh.clearTmpDetachFlag();
-        }
-        RecyclerView.this.attachViewToParent(child, index, layoutParams);
-      }
-
-      @Override
-      public void detachViewFromParent(int offset) {
-        final View view = getChildAt(offset);
-        if (view != null) {
-          final ViewHolder vh = getChildViewHolderInt(view);
-          if (vh != null) {
-            if (vh.isTmpDetached() && !vh.shouldIgnore()) {
-              throw new IllegalArgumentException("called detach on an already"
-                  + " detached child " + vh);
-            }
-            if (DEBUG) {
-              Log.d(TAG, "tmpDetach " + vh);
-            }
-            vh.addFlags(ViewHolder.FLAG_TMP_DETACHED);
-          }
-        }
-        RecyclerView.this.detachViewFromParent(offset);
-      }
-
-      @Override
-      public void onEnteredHiddenState(View child) {
-        final ViewHolder vh = getChildViewHolderInt(child);
-        if (vh != null) {
-          vh.onEnteredHiddenState(RecyclerView.this);
-        }
-      }
-
-      @Override
-      public void onLeftHiddenState(View child) {
-        final ViewHolder vh = getChildViewHolderInt(child);
-        if (vh != null) {
-          vh.onLeftHiddenState(RecyclerView.this);
-        }
-      }
-    });
+//    mChildHelper = new ChildHelper(new ChildHelper.Callback() {
+//      @Override
+//      public int getChildCount() {
+//        return RecyclerView.this.getChildCount();
+//      }
+//
+//      @Override
+//      public void addView(View child, int index) {
+//        RecyclerView.this.addView(child, index);
+//        dispatchChildAttached(child);
+//      }
+//
+//      @Override
+//      public int indexOfChild(View view) {
+//        return RecyclerView.this.indexOfChild(view);
+//      }
+//
+//      @Override
+//      public void removeViewAt(int index) {
+//        final View child = RecyclerView.this.getChildAt(index);
+//        if (child != null) {
+//          dispatchChildDetached(child);
+//        }
+//        RecyclerView.this.removeViewAt(index);
+//      }
+//
+//      @Override
+//      public View getChildAt(int offset) {
+//        return RecyclerView.this.getChildAt(offset);
+//      }
+//
+//      @Override
+//      public void removeAllViews() {
+//        final int count = getChildCount();
+//        for (int i = 0; i < count; i ++) {
+//          dispatchChildDetached(getChildAt(i));
+//        }
+//        RecyclerView.this.removeAllViews();
+//      }
+//
+//      @Override
+//      public ViewHolder getChildViewHolder(View view) {
+//        return getChildViewHolderInt(view);
+//      }
+//
+//      @Override
+//      public void attachViewToParent(View child, int index,
+//                                     ViewGroup.LayoutParams layoutParams) {
+//        final ViewHolder vh = getChildViewHolderInt(child);
+//        if (vh != null) {
+//          if (!vh.isTmpDetached() && !vh.shouldIgnore()) {
+//            throw new IllegalArgumentException("Called attach on a child which is not"
+//                + " detached: " + vh);
+//          }
+//          if (DEBUG) {
+//            Log.d(TAG, "reAttach " + vh);
+//          }
+//          vh.clearTmpDetachFlag();
+//        }
+//        RecyclerView.this.attachViewToParent(child, index, layoutParams);
+//      }
+//
+//      @Override
+//      public void detachViewFromParent(int offset) {
+//        final View view = getChildAt(offset);
+//        if (view != null) {
+//          final ViewHolder vh = getChildViewHolderInt(view);
+//          if (vh != null) {
+//            if (vh.isTmpDetached() && !vh.shouldIgnore()) {
+//              throw new IllegalArgumentException("called detach on an already"
+//                  + " detached child " + vh);
+//            }
+//            if (DEBUG) {
+//              Log.d(TAG, "tmpDetach " + vh);
+//            }
+//            vh.addFlags(ViewHolder.FLAG_TMP_DETACHED);
+//          }
+//        }
+//        RecyclerView.this.detachViewFromParent(offset);
+//      }
+//
+//      @Override
+//      public void onEnteredHiddenState(View child) {
+//        final ViewHolder vh = getChildViewHolderInt(child);
+//        if (vh != null) {
+//          vh.onEnteredHiddenState(RecyclerView.this);
+//        }
+//      }
+//
+//      @Override
+//      public void onLeftHiddenState(View child) {
+//        final ViewHolder vh = getChildViewHolderInt(child);
+//        if (vh != null) {
+//          vh.onLeftHiddenState(RecyclerView.this);
+//        }
+//      }
+//    });
   }
 
   void initAdapterManager() {
-    mAdapterHelper = new AdapterHelper(new AdapterHelper.Callback() {
-      @Override
-      public ViewHolder findViewHolder(int position) {
-        final ViewHolder vh = findViewHolderForPosition(position, true);
-        if (vh == null) {
-          return null;
-        }
-        // ensure it is not hidden because for adapter helper, the only thing matter is that
-        // LM thinks view is a child.
-        if (mChildHelper.isHidden(vh.itemView)) {
-          if (DEBUG) {
-            Log.d(TAG, "assuming view holder cannot be find because it is hidden");
-          }
-          return null;
-        }
-        return vh;
-      }
-
-      @Override
-      public void offsetPositionsForRemovingInvisible(int start, int count) {
-        offsetPositionRecordsForRemove(start, count, true);
-        mItemsAddedOrRemoved = true;
-        mState.mDeletedInvisibleItemCountSincePreviousLayout += count;
-      }
-
-      @Override
-      public void offsetPositionsForRemovingLaidOutOrNewView(int positionStart, int itemCount) {
-        offsetPositionRecordsForRemove(positionStart, itemCount, false);
-        mItemsAddedOrRemoved = true;
-      }
-
-      @Override
-      public void markViewHoldersUpdated(int positionStart, int itemCount, Object payload) {
-        viewRangeUpdate(positionStart, itemCount, payload);
-        mItemsChanged = true;
-      }
-
-      @Override
-      public void onDispatchFirstPass(AdapterHelper.UpdateOp op) {
-        dispatchUpdate(op);
-      }
-
-      void dispatchUpdate(AdapterHelper.UpdateOp op) {
-        switch (op.cmd) {
-          case AdapterHelper.UpdateOp.ADD:
-            mLayout.onItemsAdded(RecyclerView.this, op.positionStart, op.itemCount);
-            break;
-          case AdapterHelper.UpdateOp.REMOVE:
-            mLayout.onItemsRemoved(RecyclerView.this, op.positionStart, op.itemCount);
-            break;
-          case AdapterHelper.UpdateOp.UPDATE:
-            mLayout.onItemsUpdated(RecyclerView.this, op.positionStart, op.itemCount,
-                op.payload);
-            break;
-          case AdapterHelper.UpdateOp.MOVE:
-            mLayout.onItemsMoved(RecyclerView.this, op.positionStart, op.itemCount, 1);
-            break;
-        }
-      }
-
-      @Override
-      public void onDispatchSecondPass(AdapterHelper.UpdateOp op) {
-        dispatchUpdate(op);
-      }
-
-      @Override
-      public void offsetPositionsForAdd(int positionStart, int itemCount) {
-        offsetPositionRecordsForInsert(positionStart, itemCount);
-        mItemsAddedOrRemoved = true;
-      }
-
-      @Override
-      public void offsetPositionsForMove(int from, int to) {
-        offsetPositionRecordsForMove(from, to);
-        // should we create mItemsMoved ?
-        mItemsAddedOrRemoved = true;
-      }
-    });
+//    mAdapterHelper = new AdapterHelper(new AdapterHelper.Callback() {
+//      @Override
+//      public ViewHolder findViewHolder(int position) {
+//        final ViewHolder vh = findViewHolderForPosition(position, true);
+//        if (vh == null) {
+//          return null;
+//        }
+//        // ensure it is not hidden because for adapter helper, the only thing matter is that
+//        // LM thinks view is a child.
+//        if (mChildHelper.isHidden(vh.itemView)) {
+//          if (DEBUG) {
+//            Log.d(TAG, "assuming view holder cannot be find because it is hidden");
+//          }
+//          return null;
+//        }
+//        return vh;
+//      }
+//
+//      @Override
+//      public void offsetPositionsForRemovingInvisible(int start, int count) {
+//        offsetPositionRecordsForRemove(start, count, true);
+//        mItemsAddedOrRemoved = true;
+//        mState.mDeletedInvisibleItemCountSincePreviousLayout += count;
+//      }
+//
+//      @Override
+//      public void offsetPositionsForRemovingLaidOutOrNewView(int positionStart, int itemCount) {
+//        offsetPositionRecordsForRemove(positionStart, itemCount, false);
+//        mItemsAddedOrRemoved = true;
+//      }
+//
+//      @Override
+//      public void markViewHoldersUpdated(int positionStart, int itemCount, Object payload) {
+//        viewRangeUpdate(positionStart, itemCount, payload);
+//        mItemsChanged = true;
+//      }
+//
+//      @Override
+//      public void onDispatchFirstPass(AdapterHelper.UpdateOp op) {
+//        dispatchUpdate(op);
+//      }
+//
+//      void dispatchUpdate(AdapterHelper.UpdateOp op) {
+//        switch (op.cmd) {
+//          case AdapterHelper.UpdateOp.ADD:
+//            mLayout.onItemsAdded(RecyclerView.this, op.positionStart, op.itemCount);
+//            break;
+//          case AdapterHelper.UpdateOp.REMOVE:
+//            mLayout.onItemsRemoved(RecyclerView.this, op.positionStart, op.itemCount);
+//            break;
+//          case AdapterHelper.UpdateOp.UPDATE:
+//            mLayout.onItemsUpdated(RecyclerView.this, op.positionStart, op.itemCount,
+//                op.payload);
+//            break;
+//          case AdapterHelper.UpdateOp.MOVE:
+//            mLayout.onItemsMoved(RecyclerView.this, op.positionStart, op.itemCount, 1);
+//            break;
+//        }
+//      }
+//
+//      @Override
+//      public void onDispatchSecondPass(AdapterHelper.UpdateOp op) {
+//        dispatchUpdate(op);
+//      }
+//
+//      @Override
+//      public void offsetPositionsForAdd(int positionStart, int itemCount) {
+//        offsetPositionRecordsForInsert(positionStart, itemCount);
+//        mItemsAddedOrRemoved = true;
+//      }
+//
+//      @Override
+//      public void offsetPositionsForMove(int from, int to) {
+//        offsetPositionRecordsForMove(from, to);
+//        // should we create mItemsMoved ?
+//        mItemsAddedOrRemoved = true;
+//      }
+//    });
   }
 
   @Override
   protected void onMeasure(int widthSpec, int heightSpec) {
-    if (mLayout == null) {
-      defaultOnMeasure(widthSpec, heightSpec);
-      return;
-    }
-    if (mLayout.mAutoMeasure) {
-      final int widthMode = MeasureSpec.getMode(widthSpec);
-      final int heightMode = MeasureSpec.getMode(heightSpec);
-      final boolean skipMeasure = widthMode == MeasureSpec.EXACTLY
-          && heightMode == MeasureSpec.EXACTLY;
-      mLayout.onMeasure(mRecycler, mState, widthSpec, heightSpec);
-      if (skipMeasure || mAdapter == null) {
-        return;
-      }
-      if (mState.mLayoutStep == State.STEP_START) {
-        dispatchLayoutStep1();
-      }
-      // set dimensions in 2nd step. Pre-layout should happen with old dimensions for
-      // consistency
-      mLayout.setMeasureSpecs(widthSpec, heightSpec);
-      mState.mIsMeasuring = true;
-      dispatchLayoutStep2();
-
-      // now we can get the width and height from the children.
-      mLayout.setMeasuredDimensionFromChildren(widthSpec, heightSpec);
-
-      // if RecyclerView has non-exact width and height and if there is at least one child
-      // which also has non-exact width & height, we have to re-measure.
-      if (mLayout.shouldMeasureTwice()) {
-        mLayout.setMeasureSpecs(
-            MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY),
-            MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.EXACTLY));
-        mState.mIsMeasuring = true;
-        dispatchLayoutStep2();
-        // now we can get the width and height from the children.
-        mLayout.setMeasuredDimensionFromChildren(widthSpec, heightSpec);
-      }
-    } else {
-      if (mHasFixedSize) {
-        mLayout.onMeasure(mRecycler, mState, widthSpec, heightSpec);
-        return;
-      }
-      // custom onMeasure
-      if (mAdapterUpdateDuringMeasure) {
-        eatRequestLayout();
-        onEnterLayoutOrScroll();
-        processAdapterUpdatesAndSetAnimationFlags();
-        onExitLayoutOrScroll();
-
-        if (mState.mRunPredictiveAnimations) {
-          mState.mInPreLayout = true;
-        } else {
-          // consume remaining updates to provide a consistent state with the layout pass.
-          mAdapterHelper.consumeUpdatesInOnePass();
-          mState.mInPreLayout = false;
-        }
-        mAdapterUpdateDuringMeasure = false;
-        resumeRequestLayout(false);
-      }
-
-      if (mAdapter != null) {
-        mState.mItemCount = mAdapter.getItemCount();
-      } else {
-        mState.mItemCount = 0;
-      }
-      eatRequestLayout();
-      mLayout.onMeasure(mRecycler, mState, widthSpec, heightSpec);
-      resumeRequestLayout(false);
-      mState.mInPreLayout = false; // clear
-    }
+//    if (mLayout == null) {
+//      defaultOnMeasure(widthSpec, heightSpec);
+//      return;
+//    }
+//    if (mLayout.mAutoMeasure) {
+//      final int widthMode = MeasureSpec.getMode(widthSpec);
+//      final int heightMode = MeasureSpec.getMode(heightSpec);
+//      final boolean skipMeasure = widthMode == MeasureSpec.EXACTLY
+//          && heightMode == MeasureSpec.EXACTLY;
+//      mLayout.onMeasure(mRecycler, mState, widthSpec, heightSpec);
+//      if (skipMeasure || mAdapter == null) {
+//        return;
+//      }
+//      if (mState.mLayoutStep == State.STEP_START) {
+//        dispatchLayoutStep1();
+//      }
+//      // set dimensions in 2nd step. Pre-layout should happen with old dimensions for
+//      // consistency
+//      mLayout.setMeasureSpecs(widthSpec, heightSpec);
+//      mState.mIsMeasuring = true;
+//      dispatchLayoutStep2();
+//
+//      // now we can get the width and height from the children.
+//      mLayout.setMeasuredDimensionFromChildren(widthSpec, heightSpec);
+//
+//      // if RecyclerView has non-exact width and height and if there is at least one child
+//      // which also has non-exact width & height, we have to re-measure.
+//      if (mLayout.shouldMeasureTwice()) {
+//        mLayout.setMeasureSpecs(
+//            MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY),
+//            MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.EXACTLY));
+//        mState.mIsMeasuring = true;
+//        dispatchLayoutStep2();
+//        // now we can get the width and height from the children.
+//        mLayout.setMeasuredDimensionFromChildren(widthSpec, heightSpec);
+//      }
+//    } else {
+//      if (mHasFixedSize) {
+//        mLayout.onMeasure(mRecycler, mState, widthSpec, heightSpec);
+//        return;
+//      }
+//      // custom onMeasure
+//      if (mAdapterUpdateDuringMeasure) {
+//        eatRequestLayout();
+//        onEnterLayoutOrScroll();
+//        processAdapterUpdatesAndSetAnimationFlags();
+//        onExitLayoutOrScroll();
+//
+//        if (mState.mRunPredictiveAnimations) {
+//          mState.mInPreLayout = true;
+//        } else {
+//          // consume remaining updates to provide a consistent state with the layout pass.
+//          mAdapterHelper.consumeUpdatesInOnePass();
+//          mState.mInPreLayout = false;
+//        }
+//        mAdapterUpdateDuringMeasure = false;
+//        resumeRequestLayout(false);
+//      }
+//
+//      if (mAdapter != null) {
+//        mState.mItemCount = mAdapter.getItemCount();
+//      } else {
+//        mState.mItemCount = 0;
+//      }
+//      eatRequestLayout();
+//      mLayout.onMeasure(mRecycler, mState, widthSpec, heightSpec);
+//      resumeRequestLayout(false);
+//      mState.mInPreLayout = false; // clear
+//    }
   }
 
   void defaultOnMeasure(int widthSpec, int heightSpec) {
@@ -590,47 +590,47 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-    if (w != oldw || h != oldh) {
-      invalidateGlows();
-      // layout's w/h are updated during measure/layout steps.
-    }
+//    if (w != oldw || h != oldh) {
+//      invalidateGlows();
+//      // layout's w/h are updated during measure/layout steps.
+//    }
   }
 
   @Override
   protected void onLayout(boolean changed, int l, int t, int r, int b) {
-    TraceCompat.beginSection(TRACE_ON_LAYOUT_TAG);
-    dispatchLayout();
-    TraceCompat.endSection();
-    mFirstLayoutComplete = true;
+//    TraceCompat.beginSection(TRACE_ON_LAYOUT_TAG);
+//    dispatchLayout();
+//    TraceCompat.endSection();
+//    mFirstLayoutComplete = true;
   }
 
   void dispatchLayout() {
-    if (mAdapter == null) {
-      Log.e(TAG, "No adapter attached; skipping layout");
-      // leave the state in START
-      return;
-    }
-    if (mLayout == null) {
-      Log.e(TAG, "No layout manager attached; skipping layout");
-      // leave the state in START
-      return;
-    }
-    mState.mIsMeasuring = false;
-    if (mState.mLayoutStep == State.STEP_START) {
-      dispatchLayoutStep1();
-      mLayout.setExactMeasureSpecsFrom(this);
-      dispatchLayoutStep2();
-    } else if (mAdapterHelper.hasUpdates() || mLayout.getWidth() != getWidth() ||
-        mLayout.getHeight() != getHeight()) {
-      // First 2 steps are done in onMeasure but looks like we have to run again due to
-      // changed size.
-      mLayout.setExactMeasureSpecsFrom(this);
-      dispatchLayoutStep2();
-    } else {
-      // always make sure we sync them (to ensure mode is exact)
-      mLayout.setExactMeasureSpecsFrom(this);
-    }
-    dispatchLayoutStep3();
+//    if (mAdapter == null) {
+//      Log.e(TAG, "No adapter attached; skipping layout");
+//      // leave the state in START
+//      return;
+//    }
+//    if (mLayout == null) {
+//      Log.e(TAG, "No layout manager attached; skipping layout");
+//      // leave the state in START
+//      return;
+//    }
+//    mState.mIsMeasuring = false;
+//    if (mState.mLayoutStep == State.STEP_START) {
+//      dispatchLayoutStep1();
+//      mLayout.setExactMeasureSpecsFrom(this);
+//      dispatchLayoutStep2();
+//    } else if (mAdapterHelper.hasUpdates() || mLayout.getWidth() != getWidth() ||
+//        mLayout.getHeight() != getHeight()) {
+//      // First 2 steps are done in onMeasure but looks like we have to run again due to
+//      // changed size.
+//      mLayout.setExactMeasureSpecsFrom(this);
+//      dispatchLayoutStep2();
+//    } else {
+//      // always make sure we sync them (to ensure mode is exact)
+//      mLayout.setExactMeasureSpecsFrom(this);
+//    }
+//    dispatchLayoutStep3();
   }
 
   @Override
@@ -784,13 +784,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
 
     @Override
     public void onChanged() {
-      assertNotInLayoutOrScroll(null);
-      mState.mStructureChanged = true;
-
-      setDataSetChangedAfterLayout();
-      if (!mAdapterHelper.hasPendingUpdates()) {
-        requestLayout();
-      }
+//      assertNotInLayoutOrScroll(null);
+//      mState.mStructureChanged = true;
+//
+//      setDataSetChangedAfterLayout();
+//      if (!mAdapterHelper.hasPendingUpdates()) {
+//        requestLayout();
+//      }
     }
   }
 
@@ -813,26 +813,26 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
 
     @Override
     public void onAnimationFinished(ViewHolder item) {
-      item.setIsRecyclable(true);
-      if (item.mShadowedHolder != null && item.mShadowingHolder == null) { // old vh
-        item.mShadowedHolder = null;
-      }
-      // always null this because an OldViewHolder can never become NewViewHolder w/o being
-      // recycled.
-      item.mShadowingHolder = null;
-      if (!item.shouldBeKeptAsChild()) {
-        if (!removeAnimatingView(item.itemView) && item.isTmpDetached()) {
-          removeDetachedView(item.itemView, false);
-        }
-      }
+//      item.setIsRecyclable(true);
+//      if (item.mShadowedHolder != null && item.mShadowingHolder == null) { // old vh
+//        item.mShadowedHolder = null;
+//      }
+//      // always null this because an OldViewHolder can never become NewViewHolder w/o being
+//      // recycled.
+//      item.mShadowingHolder = null;
+//      if (!item.shouldBeKeptAsChild()) {
+//        if (!removeAnimatingView(item.itemView) && item.isTmpDetached()) {
+//          removeDetachedView(item.itemView, false);
+//        }
+//      }
     }
   }
 
   public final class Recycler {
     void onAdapterChanged(Adapter oldAdapter, Adapter newAdapter,
                           boolean compatibleWithPrevious) {
-      clear();
-      getRecycledViewPool().onAdapterChanged(oldAdapter, newAdapter, compatibleWithPrevious);
+//      clear();
+//      getRecycledViewPool().onAdapterChanged(oldAdapter, newAdapter, compatibleWithPrevious);
     }
   }
 

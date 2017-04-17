@@ -21,18 +21,18 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
   }
 
   public LinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
-    setOrientation(orientation);
-    setReverseLayout(reverseLayout);
-    setAutoMeasureEnabled(true);
+//    setOrientation(orientation);
+//    setReverseLayout(reverseLayout);
+//    setAutoMeasureEnabled(true);
   }
 
   public LinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr,
                              int defStyleRes) {
-    Properties properties = getProperties(context, attrs, defStyleAttr, defStyleRes);
-    setOrientation(properties.orientation);
-    setReverseLayout(properties.reverseLayout);
-    setStackFromEnd(properties.stackFromEnd);
-    setAutoMeasureEnabled(true);
+//    Properties properties = getProperties(context, attrs, defStyleAttr, defStyleRes);
+//    setOrientation(properties.orientation);
+//    setReverseLayout(properties.reverseLayout);
+//    setStackFromEnd(properties.stackFromEnd);
+//    setAutoMeasureEnabled(true);
   }
 
   @Override
