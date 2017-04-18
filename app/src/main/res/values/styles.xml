@@ -45,4 +45,9 @@
         <item name="android:submitBackground">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.ElasticDragDismiss" parent="AppTheme.NoActionBar">
+        <item name="android:windowEnterTransition">@transition/about_enter</item>
+        <item name="android:windowReturnTransition">@transition/about_return</item>
+    </style>
+
 </resources>

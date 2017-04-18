@@ -11,6 +11,11 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".elasticdismiss.ElasticDragDismissActivity"
+            android:theme="@style/AppTheme.ElasticDragDismiss">
+        </activity>
+
+        <activity
             android:name=".flexboxlayout.FlexboxLayoutActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

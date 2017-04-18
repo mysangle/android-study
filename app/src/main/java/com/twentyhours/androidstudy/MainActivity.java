@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.twentyhours.androidstudy.elasticdismiss.ElasticDragDismissActivity;
 import com.twentyhours.androidstudy.flexboxlayout.FlexboxLayoutActivity;
 import com.twentyhours.androidstudy.recyclerview.RecyclerViewActivity;
 import com.twentyhours.androidstudy.viewpager.ViewPagerActivity;
@@ -74,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class));
+      }
+    });
+
+    TextView elasticDrag = (TextView) findViewById(R.id.elastic_drag_dismiss);
+    elasticDrag.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // ElasticDragDismissActivity의 theme에 정의된 transition이 사용된다.
+        // windowEnterTransition과 windowReturnTransition이 정의되어 있다.
+        startActivity(new Intent(MainActivity.this, ElasticDragDismissActivity.class),
+            ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
       }
     });
 

@@ -10,3 +10,5 @@
 
 5. View Pager
 
+6. Elastic drag dismiss frame layout
+
